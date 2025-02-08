@@ -1,0 +1,255 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// for the database documentation
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output = "../src/config"
+  outputName = "db.dbml"
+  projectDatabaseType = "PostgreSQL"
+  projectName = "E-commerce-REST-API"
+}
+
+
+/// Enum definitions
+
+enum ShippingStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum AccountStatus {
+  ACTIVE
+  BANNED
+  SUSPENDED
+}
+
+enum Role {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+enum PromoType {
+  PRICE
+  PERCENTAGE
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  PAYPAL
+  CRYPTO
+  BANK_TRANSFER
+}
+
+enum AddressType {
+  BILLING
+  SHIPPING
+}
+
+enum ProductStatus {
+  ACTIVE
+  BANNED
+  PENDING
+}
+
+enum PaymentStatus {
+  SUCCESS
+  FAILURE
+}
+
+enum OrderStatus {
+  CONFIRMED
+  PENDING
+  DELIVERED
+  RETURNED
+  CANCELLED
+}
+
+enum NotificationType {
+  EMAIL
+  SMS
+}
+
+/// Model definitions
+
+model User {
+  userId           String       @id @default(uuid())
+  email            String       @unique
+  imagePath        String?
+  passwordHash     String?  
+  googleId         String?      @unique
+  phone            String       @unique  
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  deletedAt        DateTime?     
+  isAnonymized     Boolean      @default(false)
+  twoFactorSecret  String?      @unique     // for password recovery
+  accountStatus    AccountStatus   @default(ACTIVE)
+  refreshTokenHash String?
+  roles            Role          @default(BUYER)
+
+  // Relations
+  addresses        Address[]
+  notifications    Notification[]
+  orderItemsBuyer   OrderItem[] @relation("BuyerOrderItems")
+  orderItemsSeller  OrderItem[]  @relation("SellerOrderItems")
+  carts            Cart[]
+  products         Product[]
+  
+}
+
+model Address {
+  addressId   String      @id @default(uuid())
+  userId      String
+  street      String
+  city        String
+  state       String
+  zipCode     String
+  country     String
+  addressType AddressType
+
+  user        User        @relation(fields: [userId], references: [userId])
+}
+
+model Shipping {
+  shippingId        String          @id @default(uuid())
+  amount            Float
+  shippingStatus    ShippingStatus
+  estimatedDelivery DateTime
+
+  orderItems        OrderItem[]     // relation from OrderItem.shippingId
+}
+
+model ProductCategory {
+  categoryId String    @id @default(uuid())
+  name       String
+  parentId   String?   // self-relation; a category may have a parent
+  createdAt  DateTime
+
+  // Self–relation for category hierarchy:
+  parent   ProductCategory?    @relation("CategoryHierarchy", fields: [parentId], references: [categoryId])
+  children ProductCategory[]   @relation("CategoryHierarchy")
+
+  products Product[]
+}
+
+model Product {
+  productId     String         @id @default(uuid())
+  sellerId      String
+  categoryId    String
+  name          String
+  imagePath     String
+  description   String
+  basePrice     Float 
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  averageRating Float
+  status        ProductStatus
+
+  // Relations
+  seller   User            @relation(fields: [sellerId], references: [userId])
+  category ProductCategory @relation(fields: [categoryId], references: [categoryId])
+  variants ProductVariant[]
+  carts    Cart[]
+}
+
+model Cart {
+  userId    String
+  productId String
+  quantity  Int          @default(1)
+  dateAdded DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  user    User    @relation(fields: [userId], references: [userId])
+  product Product @relation(fields: [productId], references: [productId])
+
+  @@id([userId, productId])
+}
+
+model Payment {
+  paymentId            String          @id @default(uuid())
+  amount               Float
+  status               PaymentStatus
+  paymentMethod        PaymentMethod
+  transactionReference String
+
+  orderItems           OrderItem[]
+}
+
+model ProductVariant {
+  variantId       String   @id @default(uuid())
+  productId       String
+  attribute       String
+  option          String
+  priceAdjustment Float    @default(0)
+  stockQuantity   Int      @default(0)
+
+  product     Product     @relation(fields: [productId], references: [productId])
+  orderItems  OrderItem[]
+
+  @@unique([productId, attribute, option])
+}
+
+model Promo {
+  promoId   String   @id @default(uuid())
+  name      String
+  amount    Float
+  promoType PromoType
+  promoCode String    @unique
+  startDate DateTime
+  endDate   DateTime
+
+  orderItems OrderItem[]
+}
+
+model OrderItem {
+  orderId             String   @id @default(uuid())
+  buyerId             String
+  sellerId            String
+  paymentId           String
+  productVariantId    String
+  promoId             String?
+  shippingId          String
+  basePriceAtPurchase Float
+  rating              Int?
+  review              String?
+  complaint           String?
+  status              OrderStatus
+  orderedAt           DateTime      @default(now())
+
+  // Relations
+  buyer          User            @relation("BuyerOrderItems", fields: [buyerId], references: [userId])
+  seller         User            @relation("SellerOrderItems", fields: [sellerId], references: [userId])
+  shipping       Shipping        @relation(fields: [shippingId], references: [shippingId])
+  productVariant ProductVariant  @relation(fields: [productVariantId], references: [variantId])
+  payment        Payment         @relation(fields: [paymentId], references: [paymentId])
+  promo          Promo?           @relation(fields: [promoId], references: [promoId])
+}
+
+model Notification {
+  notificationId String           @id @default(uuid())
+  userId         String
+  type           NotificationType
+  content        String
+  sentAt         DateTime         @default(now())
+  seenAt         DateTime?
+
+  user           User             @relation(fields: [userId], references: [userId])
+}
+
+

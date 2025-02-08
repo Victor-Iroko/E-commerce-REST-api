@@ -1,0 +1,248 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Project "E-commerce-REST-API" {
+  database_type: 'PostgreSQL'
+  Note: ''
+}
+
+Table User {
+  userId String [pk]
+  email String [unique, not null]
+  imagePath String
+  passwordHash String
+  googleId String [unique]
+  phone String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  deletedAt DateTime
+  isAnonymized Boolean [not null, default: false]
+  twoFactorSecret String [unique]
+  accountStatus AccountStatus [not null, default: 'ACTIVE']
+  refreshTokenHash String
+  roles Role [not null, default: 'BUYER']
+  addresses Address [not null]
+  notifications Notification [not null]
+  orderItemsBuyer OrderItem [not null]
+  orderItemsSeller OrderItem [not null]
+  carts Cart [not null]
+  products Product [not null]
+}
+
+Table Address {
+  addressId String [pk]
+  userId String [not null]
+  street String [not null]
+  city String [not null]
+  state String [not null]
+  zipCode String [not null]
+  country String [not null]
+  addressType AddressType [not null]
+  user User [not null]
+}
+
+Table Shipping {
+  shippingId String [pk]
+  amount Float [not null]
+  shippingStatus ShippingStatus [not null]
+  estimatedDelivery DateTime [not null]
+  orderItems OrderItem [not null]
+}
+
+Table ProductCategory {
+  categoryId String [pk]
+  name String [not null]
+  parentId String
+  createdAt DateTime [not null]
+  parent ProductCategory
+  children ProductCategory [not null]
+  products Product [not null]
+}
+
+Table Product {
+  productId String [pk]
+  sellerId String [not null]
+  categoryId String [not null]
+  name String [not null]
+  imagePath String [not null]
+  description String [not null]
+  basePrice Float [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  averageRating Float [not null]
+  status ProductStatus [not null]
+  seller User [not null]
+  category ProductCategory [not null]
+  variants ProductVariant [not null]
+  carts Cart [not null]
+}
+
+Table Cart {
+  userId String [not null]
+  productId String [not null]
+  quantity Int [not null, default: 1]
+  dateAdded DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user User [not null]
+  product Product [not null]
+
+  indexes {
+    (userId, productId) [pk]
+  }
+}
+
+Table Payment {
+  paymentId String [pk]
+  amount Float [not null]
+  status PaymentStatus [not null]
+  paymentMethod PaymentMethod [not null]
+  transactionReference String [not null]
+  orderItems OrderItem [not null]
+}
+
+Table ProductVariant {
+  variantId String [pk]
+  productId String [not null]
+  attribute String [not null]
+  option String [not null]
+  priceAdjustment Float [not null, default: 0]
+  stockQuantity Int [not null, default: 0]
+  product Product [not null]
+  orderItems OrderItem [not null]
+
+  indexes {
+    (productId, attribute, option) [unique]
+  }
+}
+
+Table Promo {
+  promoId String [pk]
+  name String [not null]
+  amount Float [not null]
+  promoType PromoType [not null]
+  promoCode String [unique, not null]
+  startDate DateTime [not null]
+  endDate DateTime [not null]
+  orderItems OrderItem [not null]
+}
+
+Table OrderItem {
+  orderId String [pk]
+  buyerId String [not null]
+  sellerId String [not null]
+  paymentId String [not null]
+  productVariantId String [not null]
+  promoId String
+  shippingId String [not null]
+  basePriceAtPurchase Float [not null]
+  rating Int
+  review String
+  complaint String
+  status OrderStatus [not null]
+  orderedAt DateTime [default: `now()`, not null]
+  buyer User [not null]
+  seller User [not null]
+  shipping Shipping [not null]
+  productVariant ProductVariant [not null]
+  payment Payment [not null]
+  promo Promo
+}
+
+Table Notification {
+  notificationId String [pk]
+  userId String [not null]
+  type NotificationType [not null]
+  content String [not null]
+  sentAt DateTime [default: `now()`, not null]
+  seenAt DateTime
+  user User [not null]
+}
+
+Enum ShippingStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+Enum AccountStatus {
+  ACTIVE
+  BANNED
+  SUSPENDED
+}
+
+Enum Role {
+  BUYER
+  SELLER
+  ADMIN
+}
+
+Enum PromoType {
+  PRICE
+  PERCENTAGE
+}
+
+Enum PaymentMethod {
+  CREDIT_CARD
+  PAYPAL
+  CRYPTO
+  BANK_TRANSFER
+}
+
+Enum AddressType {
+  BILLING
+  SHIPPING
+}
+
+Enum ProductStatus {
+  ACTIVE
+  BANNED
+  PENDING
+}
+
+Enum PaymentStatus {
+  SUCCESS
+  FAILURE
+}
+
+Enum OrderStatus {
+  CONFIRMED
+  PENDING
+  DELIVERED
+  RETURNED
+  CANCELLED
+}
+
+Enum NotificationType {
+  EMAIL
+  SMS
+}
+
+Ref: Address.userId > User.userId
+
+Ref: ProductCategory.parentId - ProductCategory.categoryId
+
+Ref: Product.sellerId > User.userId
+
+Ref: Product.categoryId > ProductCategory.categoryId
+
+Ref: Cart.userId > User.userId
+
+Ref: Cart.productId > Product.productId
+
+Ref: ProductVariant.productId > Product.productId
+
+Ref: OrderItem.buyerId > User.userId
+
+Ref: OrderItem.sellerId > User.userId
+
+Ref: OrderItem.shippingId > Shipping.shippingId
+
+Ref: OrderItem.productVariantId > ProductVariant.variantId
+
+Ref: OrderItem.paymentId > Payment.paymentId
+
+Ref: OrderItem.promoId > Promo.promoId
+
+Ref: Notification.userId > User.userId
