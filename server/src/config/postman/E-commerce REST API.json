@@ -1,0 +1,2922 @@
+{
+	"info": {
+		"_postman_id": "9291450b-505d-44e0-a9a5-c07ced3aef57",
+		"name": "E-commerce REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "25325743-9291450b-505d-44e0-a9a5-c07ced3aef57"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"id": "4dc1076c-830a-4a2d-bb82-4568a3c9f0e8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"john@example.com\",\r\n  \"password\": \"Secret123!\",\r\n  \"confirmPassword\": \"Secret123!\",\r\n  \"phone\": \"1234567890\",\r\n  \"imagePath\": \"https://example.com/images/john.png\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/register",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "4535050b-c9e8-417f-a108-5fc360154e9d",
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"john@example.com\",\r\n  \"password\": \"Secret123!\",\r\n  \"phone\": \"1234567890\",\r\n  \"imagePath\": \"https://example.com/images/john.png\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/auth/register",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "aec8d152-9a09-46f0-8946-5e22d040f51e"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User registered successfully\",\n    \"user\": {\n        \"userId\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"email\": \"john@example.com\",\n        \"phone\": \"1234567890\",\n        \"roles\": \"BUYER\",\n        \"createdAt\": \"2025-02-08T12:34:56Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e8639cd-0224-499f-a405-a6f0ee55959b",
+								"exec": [
+									"pm.environment.set(\"access_token\", pm.response.json().accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "4b0be8bc-2bc4-4942-8098-ec5447299071",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"john@example.com\",\r\n  \"password\": \"Secret123!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/login",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "7e0df3f5-6274-47c6-8868-d03bfcba6dfc",
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"john@example.com\",\r\n  \"password\": \"Secret123!\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/auth/login",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "c3f7f8a1-0f3b-468b-87f9-59f4472b8a1d"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\r\n  \"user\": {\r\n    \"userId\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\r\n    \"email\": \"john@example.com\",\r\n    \"roles\": \"BUYER\"\r\n  }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Google login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6203dc2e-9626-44e6-abb8-82aeec404807",
+								"exec": [
+									"pm.environment.set(\"access_token\", pm.response.json().accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "fa4ee46d-5604-4c04-ac7f-514b46cc415e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"googleId\": \"google-unique-id-12345\",\r\n  \"email\": \"john@example.com\",\r\n  \"imagePath\": \"https://example.com/images/john.png\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/login/google",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"login",
+								"google"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "f50dfd85-8416-4f12-8769-104648117ca7",
+							"name": "Google login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"googleId\": \"google-unique-id-12345\",\r\n  \"email\": \"john@example.com\",\r\n  \"imagePath\": \"https://example.com/images/john.png\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/auth/login/google",
+									"path": [
+										"auth",
+										"login",
+										"google"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "55006b47-4253-4f85-a1f4-dabf9c93d7ae"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n  \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\r\n  \"user\": {\r\n    \"userId\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\r\n    \"email\": \"john@example.com\",\r\n    \"roles\": \"BUYER\"\r\n  }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Password recovery",
+					"id": "8bc4696d-bba6-48b2-9be0-d8219b6f818e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"john@example.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{auth_url}}/password-recovery",
+							"host": [
+								"{{auth_url}}"
+							],
+							"path": [
+								"password-recovery"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b78b5bf1-fa02-4449-87f2-d26381ce9553",
+							"name": "Password recovery",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"john@example.com\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/auth/password-recovery",
+									"path": [
+										"auth",
+										"password-recovery"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "5b91786b-deb5-4799-a80a-1b7f36df07f9"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Password recovery instructions have been sent to your email.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3b6cfa87-6616-4a6c-8525-f50ceaf19fb1",
+								"exec": [
+									"pm.environment.set(\"access_token\", pm.response.json().accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "32c83d01-96ef-4d07-83fd-4c6a3247a962",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "c2c3b7ac-bc9d-4d64-81a8-02c913e993fe"
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "View profile",
+					"id": "7918692f-3202-45b0-9e0a-9a0ffe1476d7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user_url}}/profile",
+							"host": [
+								"{{user_url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "6cd5439d-a943-4510-aa8d-7f25c42e2360",
+							"name": "View Profile",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/user/profile",
+									"path": [
+										"user",
+										"profile"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n  \"userId\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\r\n  \"email\": \"john@example.com\",\r\n  \"phone\": \"1234567890\",\r\n  \"imagePath\": \"https://example.com/images/john.png\",\r\n  \"roles\": \"BUYER\",\r\n  \"addresses\": [\r\n    {\r\n      \"addressId\": \"addr-123\",\r\n      \"street\": \"123 Main St\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10001\",\r\n      \"country\": \"USA\",\r\n      \"addressType\": \"SHIPPING\"\r\n    }\r\n  ]\r\n}\r\n"
+						}
+					]
+				},
+				{
+					"name": "Edit profile",
+					"id": "36dfe197-11c9-4f63-aa60-36a4281806f8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"phone\": \"0987654321\",\r\n  \"imagePath\": \"https://example.com/images/new_john.png\",\r\n  \"addresses\": [\r\n    {\r\n      \"addressId\": \"addr-123\",\r\n      \"street\": \"456 Another Ave\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10002\",\r\n      \"country\": \"USA\",\r\n      \"addressType\": \"SHIPPING\"\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url}}/profile",
+							"host": [
+								"{{user_url}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "a8ba32f1-35ce-4225-b867-2b3739b26ccd",
+							"name": "Edit profile",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"phone\": \"0987654321\",\r\n  \"imagePath\": \"https://example.com/images/new_john.png\",\r\n  \"addresses\": [\r\n    {\r\n      \"addressId\": \"addr-123\",\r\n      \"street\": \"456 Another Ave\",\r\n      \"city\": \"New York\",\r\n      \"state\": \"NY\",\r\n      \"zipCode\": \"10002\",\r\n      \"country\": \"USA\",\r\n      \"addressType\": \"SHIPPING\"\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/user/profile",
+									"path": [
+										"user",
+										"profile"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "0b10b609-dff4-40e8-971b-dcc82ef1e531"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n  \"message\": \"Profile updated successfully\",\r\n  \"user\": {\r\n    \"userId\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\r\n    \"phone\": \"0987654321\",\r\n    \"imagePath\": \"https://example.com/images/new_john.png\",\r\n    \"addresses\": [ ... ]\r\n  }\r\n}\r\n"
+						}
+					]
+				},
+				{
+					"name": "Delete user",
+					"id": "0b6db250-c2d5-466c-84fa-e38ed2bdf1dd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{user_url}}",
+							"host": [
+								"{{user_url}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "f5542bf7-7b89-4838-9eff-9c5548131c02",
+							"name": "Delete user",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{user_url}}",
+									"host": [
+										"{{user_url}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"name": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "e3278027-e3f5-4dc1-824d-5886e413dec1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User account deleted and data anonymized.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Register as seller",
+					"id": "7dc4d45d-cedd-4166-beac-d11f792022fd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"sellerInfo\": {\r\n    \"storeName\": \"John's Electronics\",\r\n    \"description\": \"We sell the best electronics!\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url}}/register-as-seller",
+							"host": [
+								"{{user_url}}"
+							],
+							"path": [
+								"register-as-seller"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "32058f19-a616-4cb9-8301-ab41deca67d8",
+							"name": "Register as seller",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"sellerInfo\": {\r\n    \"storeName\": \"John's Electronics\",\r\n    \"description\": \"We sell the best electronics!\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "/user/register-as-seller",
+									"path": [
+										"user",
+										"register-as-seller"
+									]
+								}
+							},
+							"_postman_previewlanguage": "Text",
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n  \"message\": \"Account updated to seller successfully.\",\r\n  \"user\": {\r\n    \"userId\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\r\n    \"roles\": \"SELLER\"\r\n  }\r\n}\r\n"
+						}
+					]
+				}
+			],
+			"id": "f710a763-21af-4929-b554-3a201e322148"
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Browse products",
+					"id": "879a6a55-4a7e-4f2a-9f0d-a5e6cd531331",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products_url}}",
+							"host": [
+								"{{products_url}}"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": null,
+									"description": "search over any keywords",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "price:asc,price:desc",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"description": "for pagination",
+									"disabled": true
+								},
+								{
+									"key": "cursor",
+									"value": null,
+									"description": "for pagination",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "57ab9077-1a71-451e-911c-51233e6f0031",
+							"name": "Browse products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/products",
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": null,
+											"description": "search over any keywords",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "price:asc,price:desc",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"description": "for pagination",
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": null,
+											"description": "for pagination",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "de2e74c8-71f6-4dd2-9962-fd99833e812d"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n  \"data\": [\r\n    {\r\n      \"productId\": \"c9d5e79a-2d54-41a8-9e72-df6a98712b33\",\r\n      \"name\": \"Wireless Headphones\",\r\n      \"category\": \"Electronics\",\r\n      \"basePrice\": 99.99,\r\n      \"averageRating\": 4.5,\r\n      \"imagePath\": \"https://example.com/product1.jpg\",\r\n      \"status\": \"ACTIVE\",\r\n      \"createdAt\": \"2025-02-08T10:15:30.000Z\"\r\n    },\r\n    {\r\n      \"productId\": \"c2f4b6de-3e78-47a9-a917-fd7b12345cfe\",\r\n      \"name\": \"Gaming Mouse\",\r\n      \"category\": \"Accessories\",\r\n      \"basePrice\": 49.99,\r\n      \"averageRating\": 4.7,\r\n      \"imagePath\": \"https://example.com/product2.jpg\",\r\n      \"status\": \"ACTIVE\",\r\n      \"createdAt\": \"2025-02-07T14:20:10.000Z\"\r\n    }\r\n  ],\r\n  \"pagination\": {\r\n    \"nextCursor\": \"eyJwcm9kdWN0SWQiOiJjMmY0YjZkZS0zZTc4LTQ3YTktYTkxNy1mZDdiMTIzNDVjZmUifQ==\",\r\n    \"hasNextPage\": true\r\n  }\r\n}\r\n"
+						}
+					]
+				},
+				{
+					"name": "View single product",
+					"id": "6f32b061-e639-4cf6-bd00-cd3510eb2a63",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products_url}}/{{product_id}}",
+							"host": [
+								"{{products_url}}"
+							],
+							"path": [
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "ab3cbe68-7992-4066-85ff-8626eb731dd2",
+							"name": "View single product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "/products/",
+									"path": [
+										"products",
+										""
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "0b8ed594-ccd1-4baf-ba04-a011512a2c9e"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n  \"productId\": \"prod-101\",\r\n  \"name\": \"Super Smartphone\",\r\n  \"description\": \"A feature-packed smartphone with excellent camera quality.\",\r\n  \"basePrice\": 699.99,\r\n  \"imagePath\": \"https://example.com/images/prod-101.png\",\r\n  \"averageRating\": 4.5,\r\n  \"variants\": [\r\n    {\r\n      \"variantId\": \"var-201\",\r\n      \"attribute\": \"color\",\r\n      \"option\": \"black\",\r\n      \"priceAdjustment\": 0,\r\n      \"stockQuantity\": 50\r\n    },\r\n    {\r\n      \"variantId\": \"var-202\",\r\n      \"attribute\": \"storage\",\r\n      \"option\": \"128GB\",\r\n      \"priceAdjustment\": 50,\r\n      \"stockQuantity\": 30\r\n    }\r\n  ]\r\n}\r\n"
+						}
+					]
+				},
+				{
+					"name": "View Recommended products",
+					"id": "d4198e59-b74b-43e2-88c1-e3bb8858d220",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{products_url}}/recommendations",
+							"host": [
+								"{{products_url}}"
+							],
+							"path": [
+								"recommendations"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b9048f0e-b0db-4698-83f0-6c4f75934d45",
+							"name": "View Recommended products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{products_url}}/recommendations",
+									"host": [
+										"{{products_url}}"
+									],
+									"path": [
+										"recommendations"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "fad33df2-7597-444c-a798-aa2d74ccc5d9"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"products\": [\n        {\n            \"productId\": \"prod-103\",\n            \"name\": \"Latest Tablet\",\n            \"basePrice\": 499.99,\n            \"imagePath\": \"https://example.com/images/prod-103.png\"\n        },\n        {\n            \"productId\": \"prod-104\",\n            \"name\": \"Wireless Headphones\",\n            \"basePrice\": 199.99,\n            \"imagePath\": \"https://example.com/images/prod-104.png\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"id": "04e6979d-a9af-4be7-b58c-3df4c24e14f9"
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "View cart",
+							"id": "d4d3fa30-593f-45ed-93d3-ffc66e733fa9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{cart_url}}",
+									"host": [
+										"{{cart_url}}"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "ee5567e9-9da0-4d34-b070-4b0d3cee3751",
+									"name": "View cart",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{cart_url}}",
+											"host": [
+												"{{cart_url}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "a993eae4-f3e6-4e04-938c-e0f75586bd2a"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"items\": [\n        {\n            \"product\": {\n                \"productId\": \"prod-101\",\n                \"name\": \"Super Smartphone\",\n                \"basePrice\": 699.99,\n                \"imagePath\": \"https://example.com/images/prod-101.png\"\n            },\n            \"quantity\": 1,\n            \"dateAdded\": \"2025-02-08T13:00:00Z\"\n        },\n        {\n            \"product\": {\n                \"productId\": \"prod-102\",\n                \"name\": \"Budget Smartphone\",\n                \"basePrice\": 299.99,\n                \"imagePath\": \"https://example.com/images/prod-102.png\"\n            },\n            \"quantity\": 2,\n            \"dateAdded\": \"2025-02-08T13:05:00Z\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Add item to cart",
+							"id": "938bf4a1-56d4-4d33-9322-525bb855b47c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"productId\": \"prod-101\",\r\n  \"quantity\": 1\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{cart_url}}",
+									"host": [
+										"{{cart_url}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "3eaf9b71-a7be-41aa-b105-7de9010d0f85",
+									"name": "Add item to cart",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"productId\": \"prod-101\",\r\n  \"quantity\": 1\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{cart_url}}",
+											"host": [
+												"{{cart_url}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "f63f31a0-795a-4260-81b0-218661b93d49"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Item added to cart\",\n    \"cartItem\": {\n        \"userId\": \"a1b2c3d4-5678-90ab-cdef-1234567890ab\",\n        \"productId\": \"prod-101\",\n        \"quantity\": 1,\n        \"dateAdded\": \"2025-02-08T13:00:00Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Remove item from cart",
+							"id": "8541eb2e-4001-4c5f-97eb-b3a5b9b21466",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{cart_url}}/{{product_id}}",
+									"host": [
+										"{{cart_url}}"
+									],
+									"path": [
+										"{{product_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "a96c4ca0-7b1c-482e-9aa9-47f6b4224e80",
+									"name": "Remove item from cart",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{cart_url}}/{{product_id}}",
+											"host": [
+												"{{cart_url}}"
+											],
+											"path": [
+												"{{product_id}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "27099f04-dd6f-4b11-9c3c-426da138b1b8"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Item removed from cart\"\n}"
+								}
+							]
+						}
+					],
+					"id": "a6dd7ab3-3670-4312-b883-663629d0587f"
+				},
+				{
+					"name": "Orders checkout",
+					"id": "b46580ee-a858-44d0-b2b8-3f63a92912a6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shippingAddressId\": \"addr-123\",\r\n  \"paymentMethod\": \"CREDIT_CARD\",\r\n  \"promoCode\": \"DISCOUNT10\",\r\n  \"cartItems\": [\r\n    {\r\n      \"productId\": \"prod-101\",\r\n      \"variantId\": \"var-201\",\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"productId\": \"prod-102\",\r\n      \"variantId\": \"var-203\",\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{order_url}}/checkout",
+							"host": [
+								"{{order_url}}"
+							],
+							"path": [
+								"checkout"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "2a30fc58-bab4-42fb-a6a9-8c0be1381ce0",
+							"name": "Orders checkout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"shippingAddressId\": \"addr-123\",\r\n  \"paymentMethod\": \"CREDIT_CARD\",\r\n  \"promoCode\": \"DISCOUNT10\",\r\n  \"cartItems\": [\r\n    {\r\n      \"productId\": \"prod-101\",\r\n      \"variantId\": \"var-201\",\r\n      \"quantity\": 1\r\n    },\r\n    {\r\n      \"productId\": \"prod-102\",\r\n      \"variantId\": \"var-203\",\r\n      \"quantity\": 2\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{order_url}}/checkout",
+									"host": [
+										"{{order_url}}"
+									],
+									"path": [
+										"checkout"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "558dff3f-061e-4e25-822f-303148ee37ee"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Order placed successfully\",\n    \"order\": {\n        \"orderId\": \"order-789\",\n        \"status\": \"CONFIRMED\",\n        \"orderedAt\": \"2025-02-08T13:30:00Z\",\n        \"paymentStatus\": \"SUCCESS\",\n        \"shipping\": {\n            \"shippingId\": \"ship-456\",\n            \"estimatedDelivery\": \"2025-02-15T18:00:00Z\",\n            \"amount\": 15\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "View order history",
+					"id": "f17d56ec-954b-49ad-bb15-145e429369ee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{order_url}}",
+							"host": [
+								"{{order_url}}"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "dateFrom",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "dateTo",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "cursor",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "3d2664d7-4009-48d3-96a8-f2d5139c8529",
+							"name": "View order history",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{order_url}}",
+									"host": [
+										"{{order_url}}"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "dateFrom",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "dateTo",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "32667193-40f4-4f8d-bc49-7c788183c5d8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"page\": 1,\n    \"limit\": 20,\n    \"total\": 5,\n    \"orders\": [\n        {\n            \"orderId\": \"order-789\",\n            \"status\": \"DELIVERED\",\n            \"orderedAt\": \"2025-02-08T13:30:00Z\",\n            \"totalAmount\": 1299.97\n        },\n        {\n            \"orderId\": \"order-790\",\n            \"status\": \"DELIVERED\",\n            \"orderedAt\": \"2025-01-25T11:00:00Z\",\n            \"totalAmount\": 699.99\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Order tracking details",
+					"id": "3407fc9e-26ca-4a47-9fd4-1b8c0793252c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{order_url}}/{{order_id}}",
+							"host": [
+								"{{order_url}}"
+							],
+							"path": [
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "eed0c340-78ec-44fd-9f03-797c9deeebd7",
+							"name": "Order tracking details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{order_url}}/{{order_id}}",
+									"host": [
+										"{{order_url}}"
+									],
+									"path": [
+										"{{order_id}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "f07b458d-d5fa-4a0c-a41e-9d700484ec98"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"orderId\": \"order-789\",\n    \"status\": \"DELIVERED\",\n    \"orderedAt\": \"2025-02-08T13:30:00Z\",\n    \"shippingStatus\": \"SHIPPED\",\n    \"trackingDetails\": {\n        \"carrier\": \"UPS\",\n        \"trackingNumber\": \"1Z999AA10123456784\",\n        \"estimatedDelivery\": \"2025-02-15T18:00:00Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "File a complaint for an order",
+					"id": "68279501-3ecb-44af-852d-1e6f813560f8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"complaint\": \"The delivered product was damaged upon arrival.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{order_url}}/{{order_id}}/complaint",
+							"host": [
+								"{{order_url}}"
+							],
+							"path": [
+								"{{order_id}}",
+								"complaint"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "889a5e11-dce8-49cb-80ae-afcf773e71bd",
+							"name": "File a complaint for an order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"complaint\": \"The delivered product was damaged upon arrival.\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{order_url}}/{{order_id}}/complaint",
+									"host": [
+										"{{order_url}}"
+									],
+									"path": [
+										"{{order_id}}",
+										"complaint"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "7ff7ed5a-a567-408f-ba49-444ab407529a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Complaint filed successfully for order order-789.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Request a return/refund",
+					"id": "c883fbcd-607e-45d8-a7fe-147b64c71018",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"reason\": \"Wrong size received\",\r\n  \"details\": \"I ordered a medium but received a small size.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{order_url}}/{{order_id}}/return",
+							"host": [
+								"{{order_url}}"
+							],
+							"path": [
+								"{{order_id}}",
+								"return"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "9ada932a-df86-4acf-a002-dc9285ce44f1",
+							"name": "Request a return/refund",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"reason\": \"Wrong size received\",\r\n  \"details\": \"I ordered a medium but received a small size.\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{order_url}}/{{order_id}}/return",
+									"host": [
+										"{{order_url}}"
+									],
+									"path": [
+										"{{order_id}}",
+										"return"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "b5852d8c-9171-41e6-8d92-d4443ef45d9d"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Return request initiated.\",\n    \"orderId\": \"order-789\",\n    \"status\": \"RETURNED\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Review order",
+					"id": "33597e77-c031-436e-acab-95c1bd4a23e2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rating\": 4,\r\n  \"review\": \"Good product overall, though shipping was a bit slow.\",\r\n  \"photoUrl\": \"https://s3.amazonaws.com/mybucket/reviews/order-789.jpg\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{order_url}}/{{order_id}}/review",
+							"host": [
+								"{{order_url}}"
+							],
+							"path": [
+								"{{order_id}}",
+								"review"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "fdf67f6c-633d-47e6-977d-2d84b4363ba6",
+							"name": "Review order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"rating\": 4,\r\n  \"review\": \"Good product overall, though shipping was a bit slow.\",\r\n  \"photoUrl\": \"https://s3.amazonaws.com/mybucket/reviews/order-789.jpg\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{order_url}}/{{order_id}}/review",
+									"host": [
+										"{{order_url}}"
+									],
+									"path": [
+										"{{order_id}}",
+										"review"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "ea05e38f-43fe-493a-a03e-f8b2d33f655a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Review submitted successfully.\",\n    \"orderId\": \"order-789\"\n}"
+						}
+					]
+				},
+				{
+					"name": "View order analytics",
+					"id": "478f3207-dec0-40ad-96aa-8ee4dcbb1f0d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "?dateFrom&dateTo",
+							"query": [
+								{
+									"key": "dateFrom",
+									"value": null,
+									"type": "text"
+								},
+								{
+									"key": "dateTo",
+									"value": null,
+									"type": "text"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "8debdd98-7b16-4b5b-a76b-fb8102cc87b7",
+							"name": "View order analytics",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "?dateFrom&dateTo",
+									"query": [
+										{
+											"key": "dateFrom",
+											"value": null
+										},
+										{
+											"key": "dateTo",
+											"value": null
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "9837009e-ff8e-4473-8e7c-5208fb2ec51a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"totalOrders\": 10,\n    \"totalSpent\": 5000,\n    \"averageOrderValue\": 500,\n    \"mostOrderedCategory\": \"Electronics\",\n    \"mostOrderedProduct\": \"Super Smartphone\",\n    \"monthlySpending\": [\n        {\n            \"month\": \"2025-01\",\n            \"amount\": 2000\n        },\n        {\n            \"month\": \"2025-02\",\n            \"amount\": 3000\n        }\n    ],\n    \"totalDiscounts\": 250,\n    \"returnRate\": 10,\n    \"mostUsedPaymentMethod\": \"CREDIT_CARD\",\n    \"reorderedItems\": [\n        {\n            \"productId\": \"prod-101\",\n            \"name\": \"Super Smartphone\",\n            \"reorderCount\": 2\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"id": "65874b54-511a-41ed-a5f5-f6c050e7f04c"
+		},
+		{
+			"name": "Seller",
+			"item": [
+				{
+					"name": "Shop management",
+					"item": [
+						{
+							"name": "Create new product",
+							"id": "31b83ef9-c34f-4130-9cd6-e755a7be9040",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Wireless Headphones\",\r\n  \"categoryId\": \"cat-electronics\",\r\n  \"imagePath\": \"https://example.com/images/headphones.png\",\r\n  \"description\": \"High-quality wireless headphones with noise cancellation.\",\r\n  \"basePrice\": 199.99,\r\n  \"variants\": [\r\n    {\r\n      \"attribute\": \"color\",\r\n      \"option\": \"black\",\r\n      \"priceAdjustment\": 0,\r\n      \"stockQuantity\": 100\r\n    },\r\n    {\r\n      \"attribute\": \"color\",\r\n      \"option\": \"white\",\r\n      \"priceAdjustment\": 0,\r\n      \"stockQuantity\": 80\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{seller_url}}/products",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "9f46477e-1b01-4d8a-9c60-4bc4f17ee4d8",
+									"name": "Create new product",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Wireless Headphones\",\r\n  \"categoryId\": \"cat-electronics\",\r\n  \"imagePath\": \"https://example.com/images/headphones.png\",\r\n  \"description\": \"High-quality wireless headphones with noise cancellation.\",\r\n  \"basePrice\": 199.99,\r\n  \"variants\": [\r\n    {\r\n      \"attribute\": \"color\",\r\n      \"option\": \"black\",\r\n      \"priceAdjustment\": 0,\r\n      \"stockQuantity\": 100\r\n    },\r\n    {\r\n      \"attribute\": \"color\",\r\n      \"option\": \"white\",\r\n      \"priceAdjustment\": 0,\r\n      \"stockQuantity\": 80\r\n    }\r\n  ]\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{seller_url}}/products",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "23ef5cd2-31b3-4d09-a3e2-511be604f350"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Product created successfully\",\n    \"product\": {\n        \"productId\": \"prod-201\",\n        \"name\": \"Wireless Headphones\",\n        \"description\": \"High-quality wireless headphones with noise cancellation.\",\n        \"basePrice\": 199.99,\n        \"categoryId\": \"cat-electronics\",\n        \"createdAt\": \"2025-02-08T14:00:00Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "List seller products",
+							"id": "7a6c8700-7107-4aed-8d19-d13d9820f75a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{seller_url}}/products",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "cursor",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "fe259525-5cb4-43ac-bde8-4f967b12ee02",
+									"name": "List seller products",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{seller_url}}/products",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products"
+											],
+											"query": [
+												{
+													"key": "cursor",
+													"value": null,
+													"disabled": true
+												},
+												{
+													"key": "limit",
+													"value": null,
+													"disabled": true
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": null,
+									"cookie": [],
+									"body": "{\r\n  \"cursor\": 1,\r\n  \"limit\": 20,\r\n  \"products\": [\r\n    {\r\n      \"productId\": \"prod-201\",\r\n      \"name\": \"Wireless Headphones\",\r\n      \"basePrice\": 199.99,\r\n      \"status\": \"ACTIVE\",\r\n      \"createdAt\": \"2025-02-08T14:00:00Z\"\r\n    }\r\n  ]\r\n}\r\n"
+								}
+							]
+						},
+						{
+							"name": "View single product",
+							"id": "995937e1-1f5e-4155-b29d-4038f12a4dd9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{seller_url}}/products/{{product_id}}",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products",
+										"{{product_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "f9d7a518-f19a-4dad-9551-6d079ac9eb82",
+									"name": "View single product",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{seller_url}}/products/{{product_id}}",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products",
+												"{{product_id}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "98e6cabb-b9b0-4030-ac6b-9fa99d1de837"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"productId\": \"prod-201\",\n    \"name\": \"Wireless Headphones\",\n    \"description\": \"High-quality wireless headphones with noise cancellation.\",\n    \"basePrice\": 199.99,\n    \"variants\": [\n        {\n            \"variantId\": \"var-301\",\n            \"attribute\": \"color\",\n            \"option\": \"black\",\n            \"priceAdjustment\": 0,\n            \"stockQuantity\": 100\n        },\n        {\n            \"variantId\": \"var-302\",\n            \"attribute\": \"color\",\n            \"option\": \"white\",\n            \"priceAdjustment\": 0,\n            \"stockQuantity\": 80\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Update a product",
+							"id": "3a303c6c-d4bf-40ac-9f86-646e95105b73",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"basePrice\": 189.99,\r\n  \"description\": \"Updated description with improved battery life.\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{seller_url}}/products/{{product_id}}",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products",
+										"{{product_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "1bf294d1-9053-4951-86c7-fadb4d90c1ad",
+									"name": "Update a product",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"basePrice\": 189.99,\r\n  \"description\": \"Updated description with improved battery life.\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{seller_url}}/products/{{product_id}}",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products",
+												"{{product_id}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "df936edc-1448-4282-83dd-bee7bf4fbffc"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Product updated successfully\",\n    \"product\": {\n        \"productId\": \"prod-201\",\n        \"name\": \"Wireless Headphones\",\n        \"basePrice\": 189.99,\n        \"description\": \"Updated description with improved battery life.\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete a product",
+							"id": "1f8b35f0-ecb2-4c55-b557-2c2261a0e93f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{seller_url}}/products/{{product_id}}",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products",
+										"{{product_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "7c393343-4c17-4777-a3b2-e1feb34d5e38",
+									"name": "Delete a product",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{seller_url}}/products/{{product_id}}",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products",
+												"{{product_id}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "e9d32b91-79be-4108-8fe2-5fb37b63ddc2"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Product deleted successfully\",\n    \"productId\": \"prod-201\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Add a variant",
+							"id": "4c255ed8-69dc-4c47-a15d-3c5cf058f174",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"attribute\": \"size\",\r\n  \"option\": \"Large\",\r\n  \"priceAdjustment\": 10.0,\r\n  \"stockQuantity\": 50\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{seller_url}}/products/{{product_id}}/variants",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products",
+										"{{product_id}}",
+										"variants"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "2a2c47bf-f24a-4fff-ad7c-5ed1fed2e882",
+									"name": "Add a variant",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"attribute\": \"size\",\r\n  \"option\": \"Large\",\r\n  \"priceAdjustment\": 10.0,\r\n  \"stockQuantity\": 50\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{seller_url}}/products/{{product_id}}/variants",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products",
+												"{{product_id}}",
+												"variants"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "a9fb6bdf-3d7d-4077-bdf4-0680cd2e0498"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Product variant added successfully\",\n    \"variant\": {\n        \"variantId\": \"var-303\",\n        \"attribute\": \"size\",\n        \"option\": \"Large\",\n        \"priceAdjustment\": 10,\n        \"stockQuantity\": 50\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Update a variant",
+							"id": "0ab29b26-ef72-4e7d-ac04-3677f1d6c1f1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"stockQuantity\": 40\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{seller_url}}/products/{{product_id}}/variants/{{variant_id}}",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products",
+										"{{product_id}}",
+										"variants",
+										"{{variant_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "1a330072-d972-4e77-bbf9-d031c671de12",
+									"name": "Update a variant",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"stockQuantity\": 40\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{seller_url}}/products/{{product_id}}/variants/{{variant_id}}",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products",
+												"{{product_id}}",
+												"variants",
+												"{{variant_id}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "da5cc511-fa87-444f-980c-cea027a6fc8d"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Product variant updated successfully\",\n    \"variant\": {\n        \"variantId\": \"var-303\",\n        \"stockQuantity\": 40\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete a variant",
+							"id": "911a3711-46cc-404b-b630-4b0ca58c495a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{seller_url}}/products/{{product_id}}/variants/{{variant_id}}",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products",
+										"{{product_id}}",
+										"variants",
+										"{{variant_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "cab0fd72-b13e-461c-9c63-44ae6a69daa9",
+									"name": "Delete a variant",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{seller_url}}/products/{{product_id}}/variants/{{variant_id}}",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"products",
+												"{{product_id}}",
+												"variants",
+												"{{variant_id}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": null,
+									"cookie": [],
+									"body": "{\r\n  \"message\": \"Product variant deleted successfully\",\r\n  \"variantId\": \"var-303\"\r\n}\r\n"
+								}
+							]
+						},
+						{
+							"name": "Low stock alerts",
+							"id": "bbe3d3ea-35fc-40f5-b90a-2ad534989ca6",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"lowStockProducts\": [\r\n    {\r\n      \"productId\": \"prod-202\",\r\n      \"name\": \"Portable Charger\",\r\n      \"lowStockVariants\": [\r\n        {\r\n          \"variantId\": \"var-310\",\r\n          \"attribute\": \"capacity\",\r\n          \"option\": \"10000mAh\",\r\n          \"stockQuantity\": 3\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{seller_url}}/products/low-stock",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"products",
+										"low-stock"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "c571962f-adac-4f10-a69e-476bdad7b20c"
+				},
+				{
+					"name": "Analytics",
+					"item": [
+						{
+							"name": "Sales and Revenue analytics",
+							"id": "041e4268-dbb4-43dc-bc33-589babf73063",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{seller_url}}/analytics/sales",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"analytics",
+										"sales"
+									],
+									"query": [
+										{
+											"key": "dateFrom",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "dateTo",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "639ab782-9abb-4556-9402-404a9c206102",
+									"name": "Sales and Revenue analytics",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{seller_url}}/analytics/sales",
+											"host": [
+												"{{seller_url}}"
+											],
+											"path": [
+												"analytics",
+												"sales"
+											],
+											"query": [
+												{
+													"key": "dateFrom",
+													"value": null,
+													"disabled": true
+												},
+												{
+													"key": "dateTo",
+													"value": null,
+													"disabled": true
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "987f40a0-4b2e-45d8-ab80-fd6f65bac3de"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"totalRevenue\": 15000,\n    \"totalOrders\": 120,\n    \"averageOrderValue\": 125,\n    \"bestSellingProducts\": [\n        {\n            \"productId\": \"prod-201\",\n            \"name\": \"Wireless Headphones\",\n            \"unitsSold\": 80\n        }\n    ],\n    \"revenueTrends\": [\n        {\n            \"date\": \"2025-01-15\",\n            \"revenue\": 5000\n        },\n        {\n            \"date\": \"2025-02-01\",\n            \"revenue\": 10000\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Product performance",
+							"id": "5e1cebdc-c4d4-4c7e-9f6c-6ab4b55c45a4",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{seller_url}}/analytics/product-performance",
+									"host": [
+										"{{seller_url}}"
+									],
+									"path": [
+										"analytics",
+										"product-performance"
+									],
+									"query": [
+										{
+											"key": "dateFrom",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "dateTo",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "fcaf412c-6c53-4afc-8a8b-6913a6062687"
+				},
+				{
+					"name": "Communication",
+					"item": [
+						{
+							"name": "View Seller notifications",
+							"id": "524495c4-2817-4546-a2f6-493ebfe6cbf8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": [
+								{
+									"id": "0c1b6ce0-9a34-4dd2-a04e-d71aa8fdc722",
+									"name": "View Seller notifications",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"_postman_previewlanguage": "Text",
+									"header": null,
+									"cookie": [],
+									"body": "{\r\n  \"notifications\": [\r\n    {\r\n      \"notificationId\": \"notif-101\",\r\n      \"type\": \"EMAIL\",\r\n      \"content\": \"You have a new order placed.\",\r\n      \"sentAt\": \"2025-02-08T14:30:00Z\",\r\n      \"seenAt\": null\r\n    }\r\n  ]\r\n}\r\n"
+								}
+							]
+						}
+					],
+					"id": "a52dc10f-4ffb-4e2a-b4a9-f8cd7104a532"
+				}
+			],
+			"id": "e80fcf05-a0df-42ad-bbe7-2f8726187665"
+		},
+		{
+			"name": "Shipping",
+			"item": [
+				{
+					"name": "List orders for fufilment",
+					"id": "fcf95b4b-d3c6-4daa-b1a0-cd9a9d655370",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{shipping_url}}/orders",
+							"host": [
+								"{{shipping_url}}"
+							],
+							"path": [
+								"orders"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "b5f32cf8-11ef-4521-8138-ca4ee17122f0",
+							"name": "List orders for fufilment",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shipping_url}}/orders",
+									"host": [
+										"{{shipping_url}}"
+									],
+									"path": [
+										"orders"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "4e3a4386-12a9-4dd4-a899-d58678320391"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"orders\": [\n        {\n            \"orderId\": \"order-789\",\n            \"shippingStatus\": \"PENDING\",\n            \"estimatedDelivery\": \"2025-02-15T18:00:00Z\",\n            \"buyer\": {\n                \"userId\": \"a1b2...\",\n                \"email\": \"john@example.com\"\n            },\n            \"seller\": {\n                \"userId\": \"s1b2...\",\n                \"email\": \"seller@example.com\"\n            }\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Update shipping status",
+					"id": "ab6df019-9dcf-476b-bc02-a3766aa7cc0a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"shippingStatus\": \"SHIPPED\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shipping_url}}/orders/{{order_id}}/status",
+							"host": [
+								"{{shipping_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"status"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "03baf9af-24f5-4121-bace-b5562d2efee8",
+							"name": "Update shipping status",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"shippingStatus\": \"SHIPPED\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shipping_url}}/orders/{{order_id}}/status",
+									"host": [
+										"{{shipping_url}}"
+									],
+									"path": [
+										"orders",
+										"{{order_id}}",
+										"status"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "5c91a28a-22e7-49ef-bf91-46d1d220b1a8"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Shipping status updated\",\n    \"orderId\": \"order-789\",\n    \"shippingStatus\": \"SHIPPED\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Generate shipping label",
+					"id": "7ff26f75-4515-47ef-83de-32a7ee97d9e2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{shipping_url}}/orders/{{order_id}}/label",
+							"host": [
+								"{{shipping_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"label"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "fe5d9453-aee8-4305-9b12-627e2d3aabb0",
+							"name": "Generate shipping label",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{shipping_url}}/orders/{{order_id}}/label",
+									"host": [
+										"{{shipping_url}}"
+									],
+									"path": [
+										"orders",
+										"{{order_id}}",
+										"label"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"name": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "b641a05a-26a4-4329-806c-488553d71af1"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"labelUrl\": \"https://s3.amazonaws.com/mybucket/labels/order-789.pdf\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Raise a dispute",
+					"id": "90e90f35-3a62-45cf-b3bf-b2c33f9818a6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"orderId\": \"order-789\",\r\n  \"issue\": \"Package damaged during transit.\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{shipping_url}}/dispute",
+							"host": [
+								"{{shipping_url}}"
+							],
+							"path": [
+								"dispute"
+							]
+						}
+					},
+					"response": [
+						{
+							"id": "3c999a22-78ba-4920-b1cb-7af5a6b8f1ed",
+							"name": "Raise a dispute",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"orderId\": \"order-789\",\r\n  \"issue\": \"Package damaged during transit.\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{shipping_url}}/dispute",
+									"host": [
+										"{{shipping_url}}"
+									],
+									"path": [
+										"dispute"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"name": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text",
+									"uuid": "810bb89f-218c-46be-9507-33ddb84f505f"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Dispute raised successfully for order order-789.\"\n}"
+						}
+					]
+				}
+			],
+			"id": "066b8d1f-8632-4586-8c55-fd633e95df46"
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Platform control and moderation",
+					"item": [
+						{
+							"name": "List users",
+							"id": "91ef03e8-682f-4329-88da-18aaa753cdf2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{admin_url}}/users",
+									"host": [
+										"{{admin_url}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "role",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "accountStatus",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "cursor",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "af32a19f-098d-4e5c-a2ad-c3973d2625cd",
+									"name": "List users",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{admin_url}}/users?role&accountStatus&cursor&limit",
+											"host": [
+												"{{admin_url}}"
+											],
+											"path": [
+												"users"
+											],
+											"query": [
+												{
+													"key": "role",
+													"value": null
+												},
+												{
+													"key": "accountStatus",
+													"value": null
+												},
+												{
+													"key": "cursor",
+													"value": null
+												},
+												{
+													"key": "limit",
+													"value": null
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"name": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "d6d08ef5-ecd5-4625-82ce-a62755101e69"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"cursor\": 1,\n    \"limit\": 20,\n    \"total\": 5,\n    \"users\": [\n        {\n            \"userId\": \"s1b2c3d4\",\n            \"email\": \"seller@example.com\",\n            \"roles\": \"SELLER\",\n            \"accountStatus\": \"ACTIVE\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Suspend a user",
+							"id": "739db080-e2be-42a9-91c0-2ad8916d3c6b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"reason\": \"Violation of platform policies.\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin_url}}/users/{{user_id}}/suspend",
+									"host": [
+										"{{admin_url}}"
+									],
+									"path": [
+										"users",
+										"{{user_id}}",
+										"suspend"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "74004cf6-a9eb-48f2-92fb-77c485f4e97c",
+									"name": "Suspend a user",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"reason\": \"Violation of platform policies.\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{admin_url}}/users/{{user_id}}/suspend",
+											"host": [
+												"{{admin_url}}"
+											],
+											"path": [
+												"users",
+												"{{user_id}}",
+												"suspend"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"name": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "55d0eaad-2014-4c9c-87a6-2e5851988686"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"User suspended successfully.\",\n    \"userId\": \"s1b2c3d4\",\n    \"accountStatus\": \"SUSPENDED\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Takedown a product",
+							"id": "26ada54d-e49a-4ce8-be62-32051a620f72",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"reason\": \"Inappropriate content or policy violation.\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin_url}}/products/{{product_id}}",
+									"host": [
+										"{{admin_url}}"
+									],
+									"path": [
+										"products",
+										"{{product_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "77e6fbf3-863c-4e08-81bf-31e3cf8ea918",
+									"name": "Takedown a product",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"reason\": \"Inappropriate content or policy violation.\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{admin_url}}/products/{{product_id}}",
+											"host": [
+												"{{admin_url}}"
+											],
+											"path": [
+												"products",
+												"{{product_id}}"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"name": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "90fa2b2b-9bd4-42a0-97ec-8ff8e0bdb67f"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Product taken down successfully.\",\n    \"productId\": \"prod-201\"\n}"
+								}
+							]
+						}
+					],
+					"id": "ad5dfdf4-7923-4cce-84b1-68c14a3c5d03"
+				},
+				{
+					"name": "Category management",
+					"item": [
+						{
+							"name": "List Categories",
+							"id": "231ac1cc-51fa-4346-b50e-1b5c3d73cc08",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{admin_url}}/categories",
+									"host": [
+										"{{admin_url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "770e5cc4-a509-46aa-90f6-3550392ecdad",
+									"name": "List Categories",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{admin_url}}/categories",
+											"host": [
+												"{{admin_url}}"
+											],
+											"path": [
+												"categories"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"name": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "2fe4a6fa-df76-42a9-94ee-d349edaf0e71"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"categories\": [\n        {\n            \"categoryId\": \"cat-electronics\",\n            \"name\": \"Electronics\",\n            \"parentId\": null\n        },\n        {\n            \"categoryId\": \"cat-smartphones\",\n            \"name\": \"Smartphones\",\n            \"parentId\": \"cat-electronics\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Create a category",
+							"id": "46e19884-0e84-4ef0-91a0-b7b70891e65e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Wearables\",\r\n  \"parentId\": \"cat-electronics\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin_url}}/categories",
+									"host": [
+										"{{admin_url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "6719e421-25bb-4d9a-858a-feb50c3b7925",
+									"name": "Create a category",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Wearables\",\r\n  \"parentId\": \"cat-electronics\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{admin_url}}/categories",
+											"host": [
+												"{{admin_url}}"
+											],
+											"path": [
+												"categories"
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"name": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "b961c6b9-1e59-4f0e-bc09-3e2d979fe342"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"message\": \"Category created successfully.\",\n    \"category\": {\n        \"categoryId\": \"cat-wearables\",\n        \"name\": \"Wearables\",\n        \"parentId\": \"cat-electronics\"\n    }\n}"
+								}
+							]
+						}
+					],
+					"id": "2d39856b-6dd2-49ba-b2a3-ee3d5304ac1c"
+				},
+				{
+					"name": "Global analytics and dashboard",
+					"item": [
+						{
+							"name": "Overview analytics",
+							"id": "dcb37165-1c48-4a14-9220-ca575edb917b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{admin_url}}/analytics/overview",
+									"host": [
+										"{{admin_url}}"
+									],
+									"path": [
+										"analytics",
+										"overview"
+									],
+									"query": [
+										{
+											"key": "dateFrom",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "dateTo",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"id": "657d01c7-66ac-48d6-a022-8560ebb096ce",
+									"name": "Overview analytics",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{admin_url}}/analytics/overview?dateFrom&dateTo",
+											"host": [
+												"{{admin_url}}"
+											],
+											"path": [
+												"analytics",
+												"overview"
+											],
+											"query": [
+												{
+													"key": "dateFrom",
+													"value": null
+												},
+												{
+													"key": "dateTo",
+													"value": null
+												}
+											]
+										}
+									},
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"name": "Content-Type",
+											"value": "application/json",
+											"description": "",
+											"type": "text",
+											"uuid": "c46e221c-374b-4c44-bbf2-32f8f99c4726"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"totalRevenue\": 500000,\n    \"totalOrders\": 10000,\n    \"averageOrderValue\": 50,\n    \"conversionRate\": 2.5,\n    \"totalUsers\": 20000,\n    \"activeUsers\": 5000,\n    \"sellerCount\": 150,\n    \"orderCancellationRate\": 3.5\n}"
+								}
+							]
+						}
+					],
+					"id": "2c9ab5ea-5273-4a45-a212-4760a1bc0d9c"
+				}
+			],
+			"id": "02845280-0b8f-4594-aba6-7070eccd9a81"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6d655651-3218-4118-b21c-3408d48610e0",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b12580d6-226c-45ba-8127-7e1114bf1585",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
